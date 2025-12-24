@@ -6,14 +6,25 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		43610B272EFB7ECA009B12B4 /* PartyUI-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 43610B212EFB7ECA009B12B4 /* PartyUI-icon.png */; };
+		43610B282EFB7ECA009B12B4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 43610B1F2EFB7ECA009B12B4 /* LICENSE */; };
+		43610B292EFB7ECA009B12B4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 43610B222EFB7ECA009B12B4 /* README.md */; };
+		43610B2C2EFB7ECA009B12B4 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43610B202EFB7ECA009B12B4 /* Package.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		43610B152EFB7EA1009B12B4 /* PartyUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PartyUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43610B1F2EFB7ECA009B12B4 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		43610B202EFB7ECA009B12B4 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		43610B212EFB7ECA009B12B4 /* PartyUI-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PartyUI-icon.png"; sourceTree = "<group>"; };
+		43610B222EFB7ECA009B12B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		43610B172EFB7EA1009B12B4 /* PartyUI */ = {
+		43610B262EFB7ECA009B12B4 /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PartyUI;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +43,11 @@
 		43610B0B2EFB7EA1009B12B4 = {
 			isa = PBXGroup;
 			children = (
-				43610B172EFB7EA1009B12B4 /* PartyUI */,
+				43610B1F2EFB7ECA009B12B4 /* LICENSE */,
+				43610B202EFB7ECA009B12B4 /* Package.swift */,
+				43610B212EFB7ECA009B12B4 /* PartyUI-icon.png */,
+				43610B222EFB7ECA009B12B4 /* README.md */,
+				43610B262EFB7ECA009B12B4 /* Sources */,
 				43610B162EFB7EA1009B12B4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,7 +87,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				43610B172EFB7EA1009B12B4 /* PartyUI */,
+				43610B262EFB7ECA009B12B4 /* Sources */,
 			);
 			name = PartyUI;
 			packageProductDependencies = (
@@ -120,6 +135,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43610B272EFB7ECA009B12B4 /* PartyUI-icon.png in Resources */,
+				43610B282EFB7ECA009B12B4 /* LICENSE in Resources */,
+				43610B292EFB7ECA009B12B4 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43610B2C2EFB7ECA009B12B4 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +292,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -291,14 +310,15 @@
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
@@ -318,7 +338,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -336,14 +356,15 @@
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
