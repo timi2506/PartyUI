@@ -417,7 +417,7 @@ public struct WelcomeSheetTitle: View {
     }
 }
 
-struct WelcomeSheetCell: View {
+public struct WelcomeSheetCell: View {
     var icon: String
     var title: String
     var context: String
@@ -447,7 +447,7 @@ struct WelcomeSheetCell: View {
     }
 }
 
-struct WelcomeSheet<CellContent: View, ButtonContent: View>: View {
+public struct WelcomeSheet<CellContent: View, ButtonContent: View>: View {
     var title: String
     @ViewBuilder var cellContent: CellContent
     @ViewBuilder var buttonContent: ButtonContent
@@ -458,7 +458,7 @@ struct WelcomeSheet<CellContent: View, ButtonContent: View>: View {
         self.buttonContent = buttonContent
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading) {
             WelcomeSheetTitle(title: title)
                 .padding(.top, 60)
