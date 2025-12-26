@@ -217,7 +217,9 @@ public struct HeaderDropdown: View {
     
     public var body: some View {
         Button(action: {
-            isExpanded.toggle()
+            withAnimation(.easeInOut(duration: 0.3)) {
+                isExpanded.toggle()
+            }
         }) {
             HStack {
                 if #available(iOS 26.0, *) {
