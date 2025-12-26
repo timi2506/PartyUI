@@ -77,7 +77,7 @@ public struct ImageRenderingView: View {
 
 // MARK: Effects
 public struct DynamicGlassEffect: ViewModifier {
-    var color: Color = Color(.quaternaryLabel)
+    var color: Color = Color(.quaternarySystemFill)
     var shape: AnyShape = AnyShape(.rect(cornerRadius: 18))
     var useFullWidth: Bool = true
     var glassEffect: Bool = true
@@ -246,7 +246,7 @@ public struct HeaderDropdown: View {
                             .frame(minWidth: 14)
                             .frame(height: 14)
                             .padding(4)
-                            .background(Color(.quaternaryLabel))
+                            .background(Color(.quaternarySystemFill))
                             .clipShape(.capsule)
                     }
                 }
@@ -379,7 +379,7 @@ public struct GlassyButtonStyle: ButtonStyle {
 
 public struct GlassyTextFieldStyle: TextFieldStyle {
     var isDisabled: Bool = false
-    var color: Color = Color(.quaternaryLabel)
+    var color: Color = Color(.quaternarySystemFill)
     var cornerRadius: CGFloat = 18
     var capsuleField: Bool = false
     var isInteractive: Bool = true
