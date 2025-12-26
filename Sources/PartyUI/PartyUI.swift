@@ -246,7 +246,7 @@ public struct HeaderDropdown: View {
                             .frame(minWidth: 14)
                             .frame(height: 14)
                             .padding(4)
-                            .background(Color(.secondarySystemFill))
+                            .background(Color(.quaternaryLabel))
                             .clipShape(.capsule)
                     }
                 }
