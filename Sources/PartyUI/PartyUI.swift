@@ -83,33 +83,35 @@ public struct DynamicGlassEffect: ViewModifier {
     var glassEffect: Bool = true
     var isInteractive: Bool = true
     var useBackground: Bool = true
+    var opacity: CGFloat = 0.2
     
-    public init(color: Color = Color(.quaternaryLabel), shape: AnyShape = AnyShape(.rect(cornerRadius: 18)), useFullWidth: Bool = true, glassEffect: Bool = true, isInteractive: Bool = true, useBackground: Bool = true) {
+    public init(color: Color = Color(.quaternaryLabel), shape: AnyShape = AnyShape(.rect(cornerRadius: 18)), useFullWidth: Bool = true, glassEffect: Bool = true, isInteractive: Bool = true, useBackground: Bool = true, opacity: CGFloat = 0.2) {
         self.color = color
         self.shape = shape
         self.useFullWidth = useFullWidth
         self.glassEffect = glassEffect
         self.isInteractive = isInteractive
         self.useBackground = useBackground
+        self.opacity = opacity
     }
     
     public func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
             if glassEffect {
                 content
-                    .background(useBackground ? color.opacity(0.2) : .clear)
+                    .background(useBackground ? color.opacity(opacity) : .clear)
                     .clipShape(shape)
                     .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
             } else {
                 content
-                    .background(useBackground ? color.opacity(0.2) : .clear)
+                    .background(useBackground ? color.opacity(opacity) : .clear)
                     .clipShape(shape)
             }
         } else {
             let shape: AnyShape = AnyShape(.rect(cornerRadius: 12))
             
             content
-                .background(color.opacity(0.2))
+                .background(color.opacity(opacity))
                 .clipShape(shape)
         }
     }
@@ -383,13 +385,15 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
     var cornerRadius: CGFloat = 18
     var capsuleField: Bool = false
     var isInteractive: Bool = true
+    var opacity: CGFloat = 0.2
     
-    public init(isDisabled: Bool = false, color: Color = Color(.quaternaryLabel), cornerRadius: CGFloat = 18, capsuleField: Bool = false, isInteractive: Bool = true) {
+    public init(isDisabled: Bool = false, color: Color = Color(.quaternaryLabel), cornerRadius: CGFloat = 18, capsuleField: Bool = false, isInteractive: Bool = true, opacity: CGFloat = 0.2) {
         self.isDisabled = isDisabled
         self.color = color
         self.cornerRadius = cornerRadius
         self.capsuleField = capsuleField
         self.isInteractive = isInteractive
+        self.opacity = opacity
     }
     
     public func _body(configuration: TextField<Self._Label>) -> some View {
@@ -405,7 +409,7 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(fontColor)
                 .padding()
-                .background(color.opacity(0.2))
+                .background(color.opacity(opacity))
                 .clipShape(shape)
                 .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
                 .allowsHitTesting(!isDisabled)
@@ -417,7 +421,7 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(fontColor)
                 .padding()
-                .background(color.opacity(0.2))
+                .background(color.opacity(opacity))
                 .clipShape(shape)
                 .allowsHitTesting(!isDisabled)
         }
