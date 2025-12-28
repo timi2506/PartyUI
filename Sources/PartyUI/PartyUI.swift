@@ -78,14 +78,14 @@ public struct ImageRenderingView: View {
 // MARK: Effects
 public struct DynamicGlassEffect: ViewModifier {
     var color: Color = Color(.quaternarySystemFill)
-    var shape: AnyShape = AnyShape(.rect(cornerRadius: 18))
+    var shape: AnyShape = AnyShape(.rect(cornerRadius: conditionalCornerRadius()))
     var useFullWidth: Bool = true
     var glassEffect: Bool = true
     var isInteractive: Bool = true
     var useBackground: Bool = true
-    var opacity: CGFloat = 0.2
+    var opacity: CGFloat = 1.0
     
-    public init(color: Color = Color(.quaternarySystemFill), shape: AnyShape = AnyShape(.rect(cornerRadius: 18)), useFullWidth: Bool = true, glassEffect: Bool = true, isInteractive: Bool = true, useBackground: Bool = true, opacity: CGFloat = 0.2) {
+    public init(color: Color = Color(.quaternarySystemFill), shape: AnyShape = AnyShape(.rect(cornerRadius: conditionalCornerRadius())), useFullWidth: Bool = true, glassEffect: Bool = true, isInteractive: Bool = true, useBackground: Bool = true, opacity: CGFloat = 1.0) {
         self.color = color
         self.shape = shape
         self.useFullWidth = useFullWidth
@@ -108,8 +108,6 @@ public struct DynamicGlassEffect: ViewModifier {
                     .clipShape(shape)
             }
         } else {
-            let shape: AnyShape = AnyShape(.rect(cornerRadius: 12))
-            
             content
                 .background(color.opacity(opacity))
                 .clipShape(shape)
@@ -332,12 +330,12 @@ public struct GlassyButtonStyle: ButtonStyle {
     var isDisabled: Bool = false
     var color: Color = .accentColor
     var useFullWidth: Bool = true
-    var cornerRadius: CGFloat = 18
+    var cornerRadius: CGFloat = conditionalCornerRadius()
     var capsuleButton: Bool = false
     var isInteractive: Bool = true
     var isMaterialButton: Bool = false
     
-    public init(isDisabled: Bool = false, color: Color = .accentColor, useFullWidth: Bool = true, cornerRadius: CGFloat = 18, capsuleButton: Bool = false, isInteractive: Bool = true, isMaterialButton: Bool = false) {
+    public init(isDisabled: Bool = false, color: Color = .accentColor, useFullWidth: Bool = true, cornerRadius: CGFloat = conditionalCornerRadius(), capsuleButton: Bool = false, isInteractive: Bool = true, isMaterialButton: Bool = false) {
         self.isDisabled = isDisabled
         self.color = color
         self.useFullWidth = useFullWidth
@@ -364,7 +362,7 @@ public struct GlassyButtonStyle: ButtonStyle {
                 .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
                 .allowsHitTesting(!isDisabled)
         } else {
-            let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: 12))
+            let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
             
             configuration.label
                 .buttonStyle(.plain)
@@ -386,12 +384,12 @@ public struct GlassyButtonStyle: ButtonStyle {
 public struct GlassyTextFieldStyle: TextFieldStyle {
     var isDisabled: Bool = false
     var color: Color = Color(.quaternarySystemFill)
-    var cornerRadius: CGFloat = 18
+    var cornerRadius: CGFloat = conditionalCornerRadius()
     var capsuleField: Bool = false
     var isInteractive: Bool = true
     var opacity: CGFloat = 1.0
     
-    public init(isDisabled: Bool = false, color: Color = Color(.quaternarySystemFill), cornerRadius: CGFloat = 18, capsuleField: Bool = false, isInteractive: Bool = true, opacity: CGFloat = 0.2) {
+    public init(isDisabled: Bool = false, color: Color = Color(.quaternarySystemFill), cornerRadius: CGFloat = conditionalCornerRadius(), capsuleField: Bool = false, isInteractive: Bool = true, opacity: CGFloat = 1.0) {
         self.isDisabled = isDisabled
         self.color = color
         self.cornerRadius = cornerRadius
@@ -418,7 +416,7 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
                 .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
                 .allowsHitTesting(!isDisabled)
         } else {
-            let shape: AnyShape = capsuleField ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: 12))
+            let shape: AnyShape = capsuleField ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
             
             configuration
                 .textFieldStyle(.plain)
