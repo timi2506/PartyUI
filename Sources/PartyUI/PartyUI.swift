@@ -148,10 +148,12 @@ public struct TerminalContainer<Content: View>: View {
 public struct OverlayButtonContainer<Content: View>: View {
     @ViewBuilder var content: Content
     @State private var keyboardShown: Bool = false
+    var blurRadius: CGFloat = 8
     
-    public init(content: Content, keyboardShown: Bool = false) {
-        self.content = content 
+    public init(content: Content, keyboardShown: Bool = false, blurRadius: CGFloat = 8) {
+        self.content = content
         self.keyboardShown = keyboardShown
+        self.blurRadius = blurRadius
     }
     
     public var body: some View {
@@ -163,7 +165,7 @@ public struct OverlayButtonContainer<Content: View>: View {
         .padding(.bottom, keyboardShown ? 20 : 0)
         .background {
             ZStack {
-                VariableBlurView(maxBlurRadius: 8, direction: .blurredBottomClearTop)
+                VariableBlurView(maxBlurRadius: blurRadius, direction: .blurredBottomClearTop)
                 Rectangle()
                     .fill(Gradient(colors: [.clear, Color(.systemBackground)]))
                     .opacity(0.8)
@@ -387,7 +389,7 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
     var cornerRadius: CGFloat = 18
     var capsuleField: Bool = false
     var isInteractive: Bool = true
-    var opacity: CGFloat = 0.2
+    var opacity: CGFloat = 1.0
     
     public init(isDisabled: Bool = false, color: Color = Color(.quaternarySystemFill), cornerRadius: CGFloat = 18, capsuleField: Bool = false, isInteractive: Bool = true, opacity: CGFloat = 0.2) {
         self.isDisabled = isDisabled
