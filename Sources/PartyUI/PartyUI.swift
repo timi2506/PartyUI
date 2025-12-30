@@ -210,16 +210,15 @@ public struct HeaderDropdown: View {
     @Binding var isExpanded: Bool
     var useCount: Bool = false
     var itemCount: Int = 0
-    @State private var oldItemCount: Int
+    @State private var oldItemCount: Int = 0
     @AppStorage var isExpandedStorage: Bool
     
-    public init(text: String, icon: String, isExpanded: Binding<Bool>, useCount: Bool = false, itemCount: Int = 0, oldItemCount: Int) {
+    public init(text: String, icon: String, isExpanded: Binding<Bool>, useCount: Bool = false, itemCount: Int = 0) {
         self.text = text
         self.icon = icon
         self._isExpanded = isExpanded
         self.useCount = useCount
         self.itemCount = itemCount
-        self.oldItemCount = oldItemCount
         self._isExpandedStorage = AppStorage(wrappedValue: true, "sectionExpanded_\(text)")
     }
     
