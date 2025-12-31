@@ -129,7 +129,7 @@ public class Haptic: ObservableObject {
 }
 
 // MARK: Colorinator
-extension Color {
+public extension Color {
     init(hex: String) {
         var cleanHexCode = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         cleanHexCode = cleanHexCode.replacingOccurrences(of: "#", with: "")
