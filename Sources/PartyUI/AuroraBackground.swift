@@ -25,10 +25,10 @@ public struct AuroraBackground: View {
         GeometryReader { raysFrameMonitor in
             ZStack {
                 ZStack {
-                    FloatingRayItem(alignment: .topLeading, monitorData: raysFrameMonitor, color: Color(hex: "90D08E"), beginningRotation: 0, duration: 60)
-                    FloatingRayItem(alignment: .topTrailing, monitorData: raysFrameMonitor, color: Color(hex: "37C2A7"), beginningRotation: 240, duration: 65)
-                    FloatingRayItem(alignment: .bottomLeading, monitorData: raysFrameMonitor, color: Color(hex: "3ACD95"), beginningRotation: 120, duration: 80)
-                    FloatingRayItem(alignment: .bottomTrailing, monitorData: raysFrameMonitor, color: Color(hex: "65D4C6"), beginningRotation: 180, duration: 70)
+                    FloatingRayItem(alignment: .topLeading, monitorData: raysFrameMonitor, color: Color(hex: color1), beginningRotation: 0, duration: 60)
+                    FloatingRayItem(alignment: .topTrailing, monitorData: raysFrameMonitor, color: Color(hex: color2), beginningRotation: 240, duration: 65)
+                    FloatingRayItem(alignment: .bottomLeading, monitorData: raysFrameMonitor, color: Color(hex: color3), beginningRotation: 120, duration: 80)
+                    FloatingRayItem(alignment: .bottomTrailing, monitorData: raysFrameMonitor, color: Color(hex: color4), beginningRotation: 180, duration: 70)
                 }
                 .blur(radius: 60)
             }
