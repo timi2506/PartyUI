@@ -7,13 +7,13 @@ import SwiftUI
 import Combine
 
 public struct AuroraBackground: View {
-    var color1: String = "90D08E"
-    var color2: String = "37C2A7"
-    var color3: String = "3ACD95"
-    var color4: String = "65D4C6"
-    var background: String = "40ABAF"
+    var color1: Color
+    var color2: Color
+    var color3: Color
+    var color4: Color
+    var background: Color
     
-    public init(color1: String = "90D08E", color2: String = "37C2A7", color3: String = "3ACD95", color4: String = "65D4C6", background: String = "40ABAF") {
+    public init(color1: Color, color2: Color, color3: Color, color4: Color, background: Color) {
         self.color1 = color1
         self.color2 = color2
         self.color3 = color3
@@ -25,14 +25,14 @@ public struct AuroraBackground: View {
         GeometryReader { raysFrameMonitor in
             ZStack {
                 ZStack {
-                    FloatingRayItem(alignment: .topLeading, monitorData: raysFrameMonitor, color: Color(hex: color1), beginningRotation: 0, duration: 60)
-                    FloatingRayItem(alignment: .topTrailing, monitorData: raysFrameMonitor, color: Color(hex: color2), beginningRotation: 240, duration: 65)
-                    FloatingRayItem(alignment: .bottomLeading, monitorData: raysFrameMonitor, color: Color(hex: color3), beginningRotation: 120, duration: 80)
-                    FloatingRayItem(alignment: .bottomTrailing, monitorData: raysFrameMonitor, color: Color(hex: color4), beginningRotation: 180, duration: 70)
+                    FloatingRayItem(alignment: .topLeading, monitorData: raysFrameMonitor, color: color1, beginningRotation: 0, duration: 60)
+                    FloatingRayItem(alignment: .topTrailing, monitorData: raysFrameMonitor, color: color2, beginningRotation: 240, duration: 65)
+                    FloatingRayItem(alignment: .bottomLeading, monitorData: raysFrameMonitor, color: color3, beginningRotation: 120, duration: 80)
+                    FloatingRayItem(alignment: .bottomTrailing, monitorData: raysFrameMonitor, color: color4, beginningRotation: 180, duration: 70)
                 }
                 .blur(radius: 60)
             }
-            .background(Color(hex: background))
+            .background(background)
             .ignoresSafeArea()
         }
     }
