@@ -15,7 +15,7 @@ public struct AuroraBackground: View {
     var color3: String = "3ACD95"
     var color4: String = "65D4C6"
     
-    init(color1: String = "90D08E", color2: String = "37C2A7", color3: String = "3ACD95", color4: String = "65D4C6") {
+    public init(color1: String = "90D08E", color2: String = "37C2A7", color3: String = "3ACD95", color4: String = "65D4C6") {
         self.color1 = color1
         self.color2 = color2
         self.color3 = color3
@@ -47,7 +47,7 @@ public struct FloatingRayItem: View {
     var beginningRotation: Double
     var duration: Double
     
-    init(floatingRayData: FloatingRayDataModel = FloatingRayDataModel(), alignment: Alignment, monitorData: GeometryProxy, color: Color, beginningRotation: Double, duration: Double) {
+    public init(floatingRayData: FloatingRayDataModel = FloatingRayDataModel(), alignment: Alignment, monitorData: GeometryProxy, color: Color, beginningRotation: Double, duration: Double) {
         self.alignment = alignment
         self.monitorData = monitorData
         self.color = color
@@ -71,7 +71,7 @@ public class FloatingRayDataModel: ObservableObject {
     var rayOffset: CGSize
     var raySize: CGFloat
     
-    init() {
+    public init() {
         raySize = CGFloat.random(in: 1.0 ..< 1.8)
         rayOffset = CGSize(width: CGFloat.random(in: -150 ..< 150),
                            height: CGFloat.random(in: -150 ..< 500))
