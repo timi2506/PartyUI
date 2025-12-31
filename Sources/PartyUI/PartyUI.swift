@@ -245,7 +245,6 @@ public struct HeaderDropdown: View {
                             .frame(minWidth: 14)
                             .frame(height: 14)
                             .padding(6)
-                            .background(Color(.secondarySystemBackground))
                             .clipShape(.capsule)
                             .glassEffect(.regular, in: .capsule(style: .circular))
                     } else {
@@ -266,8 +265,8 @@ public struct HeaderDropdown: View {
             if itemCount == 0 {
                 isExpanded = false
             }
+            isExpandedStorage = isExpanded
             oldItemCount = itemCount
-            isExpanded = isExpandedStorage
         }
         .onChange(of: itemCount) { newValue in
             if newValue == 0 {
