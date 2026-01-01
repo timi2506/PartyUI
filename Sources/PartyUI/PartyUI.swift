@@ -116,7 +116,7 @@ public struct DynamicGlassEffect: ViewModifier {
 }
 
 // MARK: Containers
-public struct TerminalContainer<Content: View, Background: View>: View {
+public struct TerminalContainer<Content: View, Background: ViewModifier>: View {
     @ViewBuilder var content: Content
     @ViewBuilder var background: Background
     
@@ -128,6 +128,7 @@ public struct TerminalContainer<Content: View, Background: View>: View {
     public var body: some View {
         ZStack(alignment: .top) {
             content
+                .padding(.horizontal)
             VStack {
                 VariableBlurView(maxBlurRadius: 1, direction: .blurredTopClearBottom)
                     .frame(maxHeight: 20)
@@ -138,10 +139,7 @@ public struct TerminalContainer<Content: View, Background: View>: View {
             .frame(alignment: .top)
         }
         .frame(height: 250)
-        .padding(.horizontal)
-        .background {
-            background
-        }
+        .modifier(background)
     }
 }
 
