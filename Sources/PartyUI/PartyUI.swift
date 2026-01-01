@@ -116,13 +116,13 @@ public struct DynamicGlassEffect: ViewModifier {
 }
 
 // MARK: Containers
-public struct TerminalContainer<Content: View>: View {
-    @State private var color: Color = Color(.secondarySystemFill)
+public struct TerminalContainer<Content: View, Background: View>: View {
     @ViewBuilder var content: Content
+    @ViewBuilder var background: Background
     
-    public init(color: Color = Color(.secondarySystemBackground), content: Content) {
+    public init(content: Content, background: Background) {
         self.content = content
-        self.color = color
+        self.background = background
     }
     
     public var body: some View {
@@ -139,7 +139,9 @@ public struct TerminalContainer<Content: View>: View {
             .frame(alignment: .top)
         }
         .frame(height: 250)
-        .modifier(DynamicGlassEffect(color: color, opacity: 1.0))
+        .background {
+            background
+        }
     }
 }
 
