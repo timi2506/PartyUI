@@ -117,6 +117,19 @@ public struct DynamicGlassEffect<Background: View>: ViewModifier {
     }
 }
 
+extension DynamicGlassEffect where Background == Color {
+    public init(color: Color = Color(.secondarySystemBackground), shape: AnyShape = AnyShape(.rect(cornerRadius: conditionalCornerRadius())), useFullWidth: Bool = true, glassEffect: Bool = true, isInteractive: Bool = true, useBackground: Bool = true, opacity: CGFloat = 1.0) {
+        self.color = color
+        self.shape = shape
+        self.useFullWidth = useFullWidth
+        self.glassEffect = glassEffect
+        self.isInteractive = isInteractive
+        self.useBackground = useBackground
+        self.opacity = opacity
+        self.background = color
+    }
+}
+
 // MARK: Containers
 public struct TerminalContainer<Content: View, Background: ViewModifier>: View {
     @ViewBuilder var content: Content
