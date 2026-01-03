@@ -27,7 +27,7 @@ public struct ImageRenderingView: View {
     var shouldImageFit: Bool = false
     var useBackground: Bool = false
     
-    public init(imageName: String, cornerRadius: CGFloat = 14, capsuleImage: Bool = false, glassEffect: Bool = true, isInteractive: Bool = true, width: CGFloat = 40, height: CGFloat = 40, shouldImageFit: Bool = false, useBackground: Bool = false) {
+    public init(imageName: String, cornerRadius: CGFloat = 24, capsuleImage: Bool = false, glassEffect: Bool = true, isInteractive: Bool = true, width: CGFloat = 40, height: CGFloat = 40, shouldImageFit: Bool = false, useBackground: Bool = false) {
         self.imageName = imageName
         self.cornerRadius = cornerRadius
         self.capsuleImage = capsuleImage
@@ -70,6 +70,7 @@ public struct ImageRenderingView: View {
                 }
             }
             .frame(width: width, height: height)
+            .background(useBackground ? Color(.secondarySystemBackground) : Color.clear)
             .clipShape(shape)
         }
     }
@@ -385,7 +386,7 @@ public struct LinkCreditCell: View {
                     if #available(iOS 26.0, *) {
                         ImageRenderingView(imageName: image, capsuleImage: true, useBackground: true)
                     } else {
-                        ImageRenderingView(imageName: image, cornerRadius: 18, useBackground: true)
+                        ImageRenderingView(imageName: image, cornerRadius: 12, useBackground: true)
                     }
                 }
                 VStack(alignment: .leading) {
