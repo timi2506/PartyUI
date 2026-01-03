@@ -116,15 +116,15 @@ public struct DynamicGlassEffect: ViewModifier {
 }
 
 // MARK: Containers
-public struct TerminalContainer<Content: View, Background: ViewModifier>: View {
+public struct TerminalContainer<Content: View>: View {
+    @State private var color: Color = Color(.quaternarySystemFill)
     @ViewBuilder var content: Content
-    @ViewBuilder var background: Background
-    
-    public init(content: Content, background: Background) {
+
+    public init(color: Color = Color(.quaternarySystemFill), content: Content) {
         self.content = content
-        self.background = background
+        self.color = color
     }
-    
+
     public var body: some View {
         ZStack(alignment: .top) {
             content
@@ -139,10 +139,47 @@ public struct TerminalContainer<Content: View, Background: ViewModifier>: View {
             .frame(alignment: .top)
         }
         .frame(height: 250)
-        .modifier(background)
+        .modifier(DynamicGlassEffect(color: color, opacity: 1.0))
     }
 }
 
+public struct OverlayBackground: ViewModifier {
+    @State private var keyboardShown: Bool = false
+    var blurRadius: CGFloat = 8
+    var useDimming: Bool = true
+    
+    public init(keyboardShown: Bool = false, blurRadius: CGFloat = 8, useDimming: Bool = true) {
+        self.keyboardShown = keyboardShown
+        self.blurRadius = blurRadius
+        self.useDimming = useDimming
+    }
+    
+    public func body(content: Content) -> some View {
+        content
+            .padding(.horizontal, 25)
+            .padding(.top, 30)
+            .padding(.bottom, keyboardShown ? 20 : 0)
+            .background {
+                ZStack {
+                    VariableBlurView(maxBlurRadius: blurRadius, direction: .blurredBottomClearTop)
+                    if useDimming {
+                        Rectangle()
+                            .fill(Gradient(colors: [.clear, Color(.systemBackground)]))
+                            .opacity(0.8)
+                    }
+                }
+                .ignoresSafeArea()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                keyboardShown = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                keyboardShown = false
+            }
+    }
+}
+
+/*
 public struct OverlayButtonContainer<Content: View>: View {
     @ViewBuilder var content: Content
     @State private var keyboardShown: Bool = false
@@ -182,6 +219,7 @@ public struct OverlayButtonContainer<Content: View>: View {
         }
     }
 }
+*/
 
 // MARK: Headers, labels, and other views
 public struct HeaderLabel: View {
