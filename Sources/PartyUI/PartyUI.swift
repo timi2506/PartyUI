@@ -184,22 +184,34 @@ public struct TerminalContainer<Content: View>: View {
 public struct HeaderLabel: View {
     var text: String
     var icon: String
+    var useHeaderStyling: Bool = false
     
-    public init(text: String, icon: String) {
+    public init(text: String, icon: String, useHeaderStyling: Bool = false) {
         self.text = text
         self.icon = icon
+        self.useHeaderStyling = useHeaderStyling
     }
     
     public var body: some View {
         HStack {
             if #available(iOS 26.0, *) {
-                Image(systemName: icon)
-                    .frame(width: 24, alignment: .center)
-                Text(text)
+                HStack {
+                    Image(systemName: icon)
+                        .frame(width: 24, alignment: .center)
+                    Text(text)
+                }
+                .opacity(useHeaderStyling ? 0.6 : 1.0)
+                .fontWeight(useHeaderStyling ? .medium : .regular)
+                .padding(useHeaderStyling ? .top : .all, 0)
             } else {
-                Image(systemName: icon)
-                    .frame(width: 20, alignment: .center)
-                Text(text)
+                HStack {
+                    Image(systemName: icon)
+                        .frame(width: 20, alignment: .center)
+                    Text(text)
+                }
+                .opacity(useHeaderStyling ? 0.6 : 1.0)
+                .fontWeight(useHeaderStyling ? .medium : .regular)
+                .padding(useHeaderStyling ? .top : .all, 0)
             }
         }
     }
@@ -275,6 +287,7 @@ public struct HeaderDropdown: View {
                     .frame(width: 24, height: 24, alignment: .center)
                     .opacity(useHeaderStyling ? 0.6 : 1.0)
             }
+            .padding(useHeaderStyling ? .top : .all, 0)
         }
         .buttonStyle(.plain)
         .onAppear {
