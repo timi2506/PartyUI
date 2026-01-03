@@ -195,7 +195,7 @@ public struct HeaderLabel: View {
     public var body: some View {
         HStack {
             if #available(iOS 26.0, *) {
-                HStack(spacing: useHeaderStyling ? 8 : nil) {
+                HStack(spacing: useHeaderStyling ? 10 : nil) {
                     Image(systemName: icon)
                         .frame(width: 24, alignment: .center)
                     Text(text)
@@ -204,7 +204,7 @@ public struct HeaderLabel: View {
                 .fontWeight(useHeaderStyling ? .medium : .regular)
                 .padding(.top, useHeaderStyling ? 10 : 0)
             } else {
-                HStack(spacing: useHeaderStyling ? 8 : nil) {
+                HStack(spacing: useHeaderStyling ? 10 : nil) {
                     Image(systemName: icon)
                         .frame(width: 20, alignment: .center)
                     Text(text)
@@ -245,7 +245,7 @@ public struct HeaderDropdown: View {
         }) {
             HStack {
                 if #available(iOS 26.0, *) {
-                    HStack(spacing: useHeaderStyling ? 8 : nil) {
+                    HStack(spacing: useHeaderStyling ? 10 : nil) {
                         Image(systemName: icon)
                             .frame(width: 24, alignment: .center)
                         Text(text)
@@ -253,7 +253,7 @@ public struct HeaderDropdown: View {
                     .opacity(useHeaderStyling ? 0.6 : 1.0)
                     .fontWeight(useHeaderStyling ? .medium : .regular)
                 } else {
-                    HStack(spacing: useHeaderStyling ? 8 : nil) {
+                    HStack(spacing: useHeaderStyling ? 10 : nil) {
                         Image(systemName: icon)
                             .frame(width: 20, alignment: .center)
                         Text(text)
