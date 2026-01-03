@@ -249,18 +249,20 @@ public struct HeaderLabel: View {
 public struct HeaderDropdown: View {
     var text: String
     var icon: String
-    @Binding var isExpanded: Bool
+    var useHeaderStyling: Bool = false
     var useCount: Bool = false
     var itemCount: Int = 0
+    @Binding var isExpanded: Bool
     @State private var oldItemCount: Int = 0
     @AppStorage var isExpandedStorage: Bool
     
-    public init(text: String, icon: String, isExpanded: Binding<Bool>, useCount: Bool = false, itemCount: Int = 0) {
+    public init(text: String, icon: String, useHeaderStyling: Bool = false, useCount: Bool = false, itemCount: Int = 0, isExpanded: Binding<Bool>) {
         self.text = text
         self.icon = icon
-        self._isExpanded = isExpanded
+        self.useHeaderStyling = useHeaderStyling
         self.useCount = useCount
         self.itemCount = itemCount
+        self._isExpanded = isExpanded
         self._isExpandedStorage = AppStorage(wrappedValue: true, "sectionExpanded_\(text)")
     }
     
@@ -272,13 +274,21 @@ public struct HeaderDropdown: View {
         }) {
             HStack {
                 if #available(iOS 26.0, *) {
-                    Image(systemName: icon)
-                        .frame(width: 24, alignment: .center)
-                    Text(text)
+                    HStack {
+                        Image(systemName: icon)
+                            .frame(width: 24, alignment: .center)
+                        Text(text)
+                    }
+                    .opacity(useHeaderStyling ? 0.6 : 1.0)
+                    .fontWeight(useHeaderStyling ? .medium : .regular)
                 } else {
-                    Image(systemName: icon)
-                        .frame(width: 20, alignment: .center)
-                    Text(text)
+                    HStack {
+                        Image(systemName: icon)
+                            .frame(width: 20, alignment: .center)
+                        Text(text)
+                    }
+                    .opacity(useHeaderStyling ? 0.6 : 1.0)
+                    .fontWeight(useHeaderStyling ? .medium : .regular)
                 }
                 Spacer()
                 if useCount {
@@ -302,6 +312,7 @@ public struct HeaderDropdown: View {
                 }
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .frame(width: 24, height: 24, alignment: .center)
+                    .opacity(useHeaderStyling ? 0.6 : 1.0)
             }
         }
         .buttonStyle(.plain)
