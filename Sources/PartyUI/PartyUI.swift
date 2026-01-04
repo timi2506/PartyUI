@@ -200,20 +200,15 @@ public struct HeaderLabel: View {
                         .frame(width: 24, alignment: .center)
                     Text(text)
                 }
-                .opacity(useHeaderStyling ? 0.6 : 1.0)
-                .fontWeight(useHeaderStyling ? .medium : .regular)
-                .padding(.top, useHeaderStyling ? 10 : 0)
             } else {
                 HStack(spacing: useHeaderStyling ? 10 : nil) {
                     Image(systemName: icon)
                         .frame(width: 20, alignment: .center)
                     Text(text)
                 }
-                .opacity(useHeaderStyling ? 0.6 : 1.0)
-                .fontWeight(useHeaderStyling ? .medium : .regular)
-                .padding(.top, useHeaderStyling ? 10 : 0)
             }
         }
+        .modifier(HeaderStyling(useHeaderStyling: useHeaderStyling))
     }
 }
 
@@ -245,21 +240,13 @@ public struct HeaderDropdown: View {
         }) {
             HStack {
                 if #available(iOS 26.0, *) {
-                    HStack(spacing: useHeaderStyling ? 10 : nil) {
-                        Image(systemName: icon)
-                            .frame(width: 24, alignment: .center)
-                        Text(text)
-                    }
-                    .opacity(useHeaderStyling ? 0.6 : 1.0)
-                    .fontWeight(useHeaderStyling ? .medium : .regular)
+                    Image(systemName: icon)
+                        .frame(width: 24, alignment: .center)
+                    Text(text)
                 } else {
-                    HStack(spacing: useHeaderStyling ? 10 : nil) {
-                        Image(systemName: icon)
-                            .frame(width: 20, alignment: .center)
-                        Text(text)
-                    }
-                    .opacity(useHeaderStyling ? 0.6 : 1.0)
-                    .fontWeight(useHeaderStyling ? .medium : .regular)
+                    Image(systemName: icon)
+                        .frame(width: 20, alignment: .center)
+                    Text(text)
                 }
                 Spacer()
                 if useCount {
@@ -268,10 +255,9 @@ public struct HeaderDropdown: View {
                             .frame(minWidth: 14)
                             .frame(height: 14)
                             .padding(6)
+                            .background(Color(.secondarySystemBackground))
                             .clipShape(.capsule)
                             .glassEffect(.regular, in: .capsule(style: .circular))
-                            .font(.system(.callout, weight: .semibold))
-                            .opacity(useHeaderStyling ? 0.6 : 1.0)
                     } else {
                         Text("\(itemCount)")
                             .frame(minWidth: 14)
@@ -279,16 +265,12 @@ public struct HeaderDropdown: View {
                             .padding(4)
                             .background(Color(.quaternarySystemFill))
                             .clipShape(.capsule)
-                            .font(.system(.callout, weight: .semibold))
-                            .opacity(useHeaderStyling ? 0.6 : 1.0)
                     }
                 }
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .frame(width: 24, height: 24, alignment: .center)
-                    .opacity(useHeaderStyling ? 0.6 : 1.0)
             }
         }
-        .padding(.top, useHeaderStyling ? 10 : 0)
         .buttonStyle(.plain)
         .onAppear {
             isExpandedStorage = isExpanded
@@ -307,6 +289,25 @@ public struct HeaderDropdown: View {
         }
         .onChange(of: isExpanded) { newValue in
             isExpandedStorage = newValue
+        }
+    }
+}
+
+public struct HeaderStyling: ViewModifier {
+    var useHeaderStyling: Bool
+    
+    public init(useHeaderStyling: Bool) {
+        self.useHeaderStyling = useHeaderStyling
+    }
+    
+    public func body(content: Content) -> some View {
+        if useHeaderStyling {
+            content
+                .opacity(0.6)
+                .fontWeight(.medium)
+                .padding(.top, 10)
+        } else {
+            content
         }
     }
 }
