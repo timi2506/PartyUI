@@ -273,7 +273,7 @@ public struct HeaderDropdown: View {
         }
         .buttonStyle(.plain)
         .onAppear {
-            isExpandedStorage = isExpanded
+            isExpanded = isExpandedStorage
             if itemCount == 0 {
                 isExpanded = false
             }
