@@ -236,6 +236,7 @@ public struct HeaderDropdown: View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.3)) {
                 isExpanded.toggle()
+                isExpandedStorage = isExpanded
             }
         }) {
             HStack {
