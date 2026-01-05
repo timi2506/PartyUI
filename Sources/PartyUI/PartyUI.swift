@@ -411,8 +411,9 @@ public struct GlassyButtonStyle: ButtonStyle {
     var isInteractive: Bool = true
     var width: CGFloat? = nil
     var isMaterialButton: Bool = false
+    var materialOpacity: CGFloat = 0.4
     
-    public init(isDisabled: Bool = false, color: Color = .accentColor, useFullWidth: Bool = true, cornerRadius: CGFloat = conditionalCornerRadius(), capsuleButton: Bool = false, isInteractive: Bool = true, width: CGFloat? = nil, isMaterialButton: Bool = false) {
+    public init(isDisabled: Bool = false, color: Color = .accentColor, useFullWidth: Bool = true, cornerRadius: CGFloat = conditionalCornerRadius(), capsuleButton: Bool = false, isInteractive: Bool = true, width: CGFloat? = nil, isMaterialButton: Bool = false, materialOpacity: CGFloat = 0.4) {
         self.isDisabled = isDisabled
         self.color = color
         self.useFullWidth = useFullWidth
@@ -421,6 +422,7 @@ public struct GlassyButtonStyle: ButtonStyle {
         self.isInteractive = isInteractive
         self.width = width
         self.isMaterialButton = isMaterialButton
+        self.materialOpacity = materialOpacity
     }
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -452,7 +454,7 @@ public struct GlassyButtonStyle: ButtonStyle {
                 .background(color.opacity(0.2))
                 .background {
                     if isMaterialButton {
-                        Color.clear.background(.ultraThinMaterial)
+                        Color.clear.background(.ultraThinMaterial.opacity(materialOpacity))
                     }
                 }
                 .clipShape(shape)
