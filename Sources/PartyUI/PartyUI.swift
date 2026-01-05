@@ -275,11 +275,14 @@ public struct HeaderDropdown: View {
         .buttonStyle(.plain)
         .onAppear {
             isExpanded = isExpandedStorage
+            /*
             if itemCount == 0 {
                 isExpanded = false
             }
             oldItemCount = itemCount
+             */
         }
+        /*
         .onChange(of: itemCount) { newValue in
             if newValue == 0 {
                 isExpanded = false
@@ -288,6 +291,7 @@ public struct HeaderDropdown: View {
             }
             oldItemCount = newValue
         }
+         */
         .onChange(of: isExpanded) { newValue in
             isExpandedStorage = newValue
         }
