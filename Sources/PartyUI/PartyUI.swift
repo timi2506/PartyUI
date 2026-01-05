@@ -217,12 +217,12 @@ public struct HeaderDropdown: View {
     var icon: String
     var useHeaderStyling: Bool = false
     var useCount: Bool = false
-    var itemCount: Int = 0
+    var itemCount: Int = 1
     @Binding var isExpanded: Bool
     @State private var oldItemCount: Int = 0
     @AppStorage var isExpandedStorage: Bool
     
-    public init(text: String, icon: String, useHeaderStyling: Bool = false, useCount: Bool = false, itemCount: Int = 0, isExpanded: Binding<Bool>) {
+    public init(text: String, icon: String, useHeaderStyling: Bool = false, useCount: Bool = false, itemCount: Int = 1, isExpanded: Binding<Bool>) {
         self.text = text
         self.icon = icon
         self.useHeaderStyling = useHeaderStyling
