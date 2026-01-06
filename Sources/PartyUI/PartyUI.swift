@@ -551,7 +551,7 @@ public struct ListToggleItem: ToggleStyle {
         }) {
             LabeledContent {
                 Image(systemName: configuration.$isOn.wrappedValue ? "checkmark.circle.fill" : "circle")
-                    .animation(.default, value: configuration.$isOn.wrappedValue)
+                    .animation(.easeInOut(duration: 0.15), value: configuration.$isOn.wrappedValue)
             } label: {
                 HStack {
                     if !icon.isEmpty {
