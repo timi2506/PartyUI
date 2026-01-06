@@ -538,27 +538,53 @@ public struct GlassyListRowBackground: ViewModifier {
     }
 }
 
-public struct ListToggleItem: ToggleStyle {
+public struct ListToggleItem: View {
+    var text: String
     var icon: String = ""
+    var useBackground: Bool = true
+    @Binding var isOn: Bool
     
-    public init(icon: String = "") {
+    public init(text: String, icon: String = "", useBackground: Bool = true, isOn: Binding<Bool>) {
+        self.text = text
         self.icon = icon
+        self.useBackground = useBackground
+        self._isOn = isOn
     }
     
-    public func makeBody(configuration: Configuration) -> some View {
-        Button(action: {
-            configuration.$isOn.wrappedValue.toggle()
-        }) {
-            LabeledContent {
-                Image(systemName: configuration.$isOn.wrappedValue ? "checkmark.circle.fill" : "circle")
-                    .animation(.easeInOut(duration: 0.15), value: configuration.$isOn.wrappedValue)
-            } label: {
-                HStack {
-                    if !icon.isEmpty {
-                        Image(systemName: icon)
-                            .frame(width: 24, alignment: .center)
+    public var body: some View {
+        if useBackground {
+            Button(action: {
+                isOn.toggle()
+            }) {
+                LabeledContent {
+                    Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                } label: {
+                    HStack {
+                        if !icon.isEmpty {
+                            Image(systemName: icon)
+                                .frame(width: 24, alignment: .center)
+                        }
+                        Text(text)
+                            .lineLimit(1)
                     }
-                    configuration.label
+                }
+            }
+            .modifier(GlassyListRowBackground())
+        } else {
+            Button(action: {
+                isOn.toggle()
+            }) {
+                LabeledContent {
+                    Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                } label: {
+                    HStack {
+                        if !icon.isEmpty {
+                            Image(systemName: icon)
+                                .frame(width: 24, alignment: .center)
+                        }
+                        Text(text)
+                            .lineLimit(1)
+                    }
                 }
             }
         }
