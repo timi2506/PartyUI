@@ -552,7 +552,7 @@ public struct ListToggleItem: ToggleStyle {
             }
         }) {
             LabeledContent {
-                Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
+                Image(systemName: configuration.$isOn.wrappedValue ? "checkmark.circle.fill" : "circle")
                     .frame(width: 24, alignment: .center)
             } label: {
                 HStack {
