@@ -15,6 +15,12 @@ public func conditionalCornerRadius() -> CGFloat {
     }
 }
 
+func doubleSystemVersion() -> Double {
+    let rawSystemVersion = UIDevice.current.systemVersion
+    let parsedSystemVersion = rawSystemVersion.split(separator: ".").prefix(2).joined(separator: ".")
+    return Double(parsedSystemVersion) ?? 0.0
+}
+
 // MARK: Image Rendering
 public struct ImageRenderingView: View {
     var imageName: String
@@ -542,51 +548,59 @@ public struct ListToggleItem: View {
     var text: String
     var icon: String = ""
     var useBackground: Bool = true
+    var minSupportedVersion: Double = 0.0
+    var maxSupportedVersion: Double = 100.0
     @Binding var isOn: Bool
     
-    public init(text: String, icon: String = "", useBackground: Bool = true, isOn: Binding<Bool>) {
+    public init(text: String, icon: String = "", useBackground: Bool = true, minSupportedVersion: Double = 0.0, maxSupportedVersion: Double = 100.0, isOn: Binding<Bool>) {
         self.text = text
         self.icon = icon
         self.useBackground = useBackground
+        self.minSupportedVersion = minSupportedVersion
+        self.maxSupportedVersion = maxSupportedVersion
         self._isOn = isOn
     }
     
     public var body: some View {
-        if useBackground {
-            Button(action: {
-                isOn.toggle()
-            }) {
-                LabeledContent {
-                    Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
-                } label: {
-                    HStack {
-                        if !icon.isEmpty {
-                            Image(systemName: icon)
-                                .frame(width: 24, alignment: .center)
+        if doubleSystemVersion() <= maxSupportedVersion && doubleSystemVersion() >= minSupportedVersion {
+            if useBackground {
+                Button(action: {
+                    isOn.toggle()
+                }) {
+                    LabeledContent {
+                        Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                    } label: {
+                        HStack {
+                            if !icon.isEmpty {
+                                Image(systemName: icon)
+                                    .frame(width: 24, alignment: .center)
+                            }
+                            Text(text)
+                                .lineLimit(1)
                         }
-                        Text(text)
-                            .lineLimit(1)
+                    }
+                }
+                .modifier(GlassyListRowBackground())
+            } else {
+                Button(action: {
+                    isOn.toggle()
+                }) {
+                    LabeledContent {
+                        Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                    } label: {
+                        HStack {
+                            if !icon.isEmpty {
+                                Image(systemName: icon)
+                                    .frame(width: 24, alignment: .center)
+                            }
+                            Text(text)
+                                .lineLimit(1)
+                        }
                     }
                 }
             }
-            .modifier(GlassyListRowBackground())
         } else {
-            Button(action: {
-                isOn.toggle()
-            }) {
-                LabeledContent {
-                    Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
-                } label: {
-                    HStack {
-                        if !icon.isEmpty {
-                            Image(systemName: icon)
-                                .frame(width: 24, alignment: .center)
-                        }
-                        Text(text)
-                            .lineLimit(1)
-                    }
-                }
-            }
+            
         }
     }
 }
