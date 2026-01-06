@@ -547,17 +547,16 @@ public struct ListToggleItem: ToggleStyle {
     
     public func makeBody(configuration: Configuration) -> some View {
         Button(action: {
-            withAnimation {
-                configuration.$isOn.wrappedValue.toggle()
-            }
+            configuration.$isOn.wrappedValue.toggle()
         }) {
             LabeledContent {
                 Image(systemName: configuration.$isOn.wrappedValue ? "checkmark.circle.fill" : "circle")
-                    .frame(width: 24, alignment: .center)
+                    .animation(.default, value: configuration.$isOn.wrappedValue)
             } label: {
                 HStack {
                     if !icon.isEmpty {
                         Image(systemName: icon)
+                            .frame(width: 24, alignment: .center)
                     }
                     configuration.label
                 }
