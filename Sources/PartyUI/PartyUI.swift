@@ -548,7 +548,7 @@ public struct ListToggleItem: ToggleStyle {
     public func makeBody(configuration: Configuration) -> some View {
         Button(action: {
             withAnimation {
-                configuration.isOn.toggle()
+                configuration.$isOn.wrappedValue.toggle()
             }
         }) {
             LabeledContent {
