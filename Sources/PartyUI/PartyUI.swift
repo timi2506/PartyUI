@@ -538,3 +538,30 @@ public struct GlassyListRowBackground: ViewModifier {
     }
 }
 
+public struct ListToggleItem: ToggleStyle {
+    var icon: String = ""
+    
+    public init(icon: String = "") {
+        self.icon = icon
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        Button(action: {
+            withAnimation {
+                configuration.isOn.toggle()
+            }
+        }) {
+            LabeledContent {
+                Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
+                    .frame(width: 24, alignment: .center)
+            } label: {
+                HStack {
+                    if !icon.isEmpty {
+                        Image(systemName: icon)
+                    }
+                    configuration.label
+                }
+            }
+        }
+    }
+}
