@@ -23,7 +23,7 @@ func doubleSystemVersion() -> Double {
 
 // MARK: Image Rendering
 public struct ImageRenderingView: View {
-    var imageName: String
+    var image: Image
     var cornerRadius: CGFloat = 24
     var capsuleImage: Bool = false
     var glassEffect: Bool = true
@@ -33,8 +33,8 @@ public struct ImageRenderingView: View {
     var shouldImageFit: Bool = false
     var useBackground: Bool = false
     
-    public init(imageName: String, cornerRadius: CGFloat = 24, capsuleImage: Bool = false, glassEffect: Bool = true, isInteractive: Bool = true, width: CGFloat = 40, height: CGFloat = 40, shouldImageFit: Bool = false, useBackground: Bool = false) {
-        self.imageName = imageName
+    public init(image: Image, cornerRadius: CGFloat = 24, capsuleImage: Bool = false, glassEffect: Bool = true, isInteractive: Bool = true, width: CGFloat = 40, height: CGFloat = 40, shouldImageFit: Bool = false, useBackground: Bool = false) {
+        self.image = image
         self.cornerRadius = cornerRadius
         self.capsuleImage = capsuleImage
         self.glassEffect = glassEffect
@@ -51,11 +51,11 @@ public struct ImageRenderingView: View {
         if #available(iOS 26.0, *) {
             Group {
                 if shouldImageFit {
-                    Image(imageName)
+                    image
                         .resizable()
                         .scaledToFit()
                 } else {
-                    Image(imageName)
+                    image
                         .resizable()
                         .scaledToFill()
                 }
@@ -66,11 +66,11 @@ public struct ImageRenderingView: View {
         } else {
             Group {
                 if shouldImageFit {
-                    Image(imageName)
+                    image
                         .resizable()
                         .scaledToFit()
                 } else {
-                    Image(imageName)
+                    image
                         .resizable()
                         .scaledToFill()
                 }
@@ -330,7 +330,7 @@ public struct ButtonLabel: View {
     public var body: some View {
         HStack {
             if isRegularImage {
-                ImageRenderingView(imageName: icon, cornerRadius: 0, glassEffect: false, isInteractive: false, width: 24, height: 24, shouldImageFit: true)
+                ImageRenderingView(image: Image(icon), cornerRadius: 0, glassEffect: false, isInteractive: false, width: 24, height: 24, shouldImageFit: true)
             } else {
                 Image(systemName: icon)
             }
@@ -360,9 +360,9 @@ public struct LinkCreditCell: View {
             HStack(spacing: 12) {
                 if !image.isEmpty {
                     if #available(iOS 26.0, *) {
-                        ImageRenderingView(imageName: image, capsuleImage: true, useBackground: true)
+                        ImageRenderingView(image: Image(image), capsuleImage: true, useBackground: true)
                     } else {
-                        ImageRenderingView(imageName: image, cornerRadius: 8, useBackground: true)
+                        ImageRenderingView(image: Image(image), cornerRadius: 8, useBackground: true)
                     }
                 }
                 VStack(alignment: .leading) {
@@ -396,7 +396,7 @@ public struct AppInfoCell: View {
     
     public var body: some View {
         HStack(spacing: 14) {
-            ImageRenderingView(imageName: imageName, cornerRadius: conditionalCornerRadius(), width: 60, height: 60, useBackground: true)
+            ImageRenderingView(image: Image(imageName), cornerRadius: conditionalCornerRadius(), width: 60, height: 60, useBackground: true)
             VStack(alignment: .leading) {
                 Text(title)
                     .font(.system(.title3, weight: .medium))
