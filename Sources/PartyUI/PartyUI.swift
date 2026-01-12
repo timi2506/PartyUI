@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-// MARK: Functions
+// MARK: Functions/Extensions
 public func conditionalCornerRadius() -> CGFloat {
     if #available(iOS 26.0, *) {
         return 18
@@ -15,10 +15,37 @@ public func conditionalCornerRadius() -> CGFloat {
     }
 }
 
-func doubleSystemVersion() -> Double {
+public func backgroundCornerRadius() -> CGFloat {
+    if #available(iOS 26.0, *) {
+        return 26
+    } else {
+        return 18
+    }
+}
+
+public func smallPlatterCornerRadius() -> CGFloat {
+    if #available(iOS 26.0, *) {
+        return 16
+    } else {
+        return 12
+    }
+}
+
+public func doubleSystemVersion() -> Double {
     let rawSystemVersion = UIDevice.current.systemVersion
     let parsedSystemVersion = rawSystemVersion.split(separator: ".").prefix(2).joined(separator: ".")
     return Double(parsedSystemVersion) ?? 0.0
+}
+
+public extension EdgeInsets {
+    static let dropdownRowInsets = EdgeInsets(top: 6, leading: 20, bottom: 6, trailing: 20)
+    static let itemRowInsets = EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+}
+
+public extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
 }
 
 // MARK: Image Rendering
