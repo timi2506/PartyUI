@@ -23,6 +23,14 @@ public func platterCornerRadius() -> CGFloat {
     }
 }
 
+public func platterBackgroundColor() -> Color {
+    if #available(iOS 26.0, *) {
+        return Color(.quaternarySystemFill)
+    } else {
+        return Color(.secondarySystemBackground)
+    }
+}
+
 public func smallPlatterCornerRadius() -> CGFloat {
     if #available(iOS 26.0, *) {
         return 16
@@ -357,7 +365,8 @@ public struct CustomFooter: View {
     public var body: some View {
         Text(text)
             .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.footnote)
             .opacity(0.8)
     }
 }
@@ -686,11 +695,11 @@ public struct ListToggleItem: View {
 }
 
 public struct GlassyPlatter: ViewModifier {
-    var color: Color = Color(.quaternarySystemFill)
+    var color: Color = platterBackgroundColor()
     var shape: AnyShape = AnyShape(.rect(cornerRadius: platterCornerRadius()))
     var isInteractive: Bool = true
     
-    public init(color: Color = Color(.quaternarySystemFill), shape: AnyShape = AnyShape(.rect(cornerRadius: platterCornerRadius())), isInteractive: Bool = true) {
+    public init(color: Color = platterBackgroundColor(), shape: AnyShape = AnyShape(.rect(cornerRadius: platterCornerRadius())), isInteractive: Bool = true) {
         self.color = color
         self.shape = shape
         self.isInteractive = isInteractive
