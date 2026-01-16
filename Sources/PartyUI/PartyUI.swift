@@ -701,7 +701,6 @@ public struct GlassyPlatter: ViewModifier {
             if isInteractive {
                 content
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundStyle(color)
                     .padding()
                     .background(color.opacity(0.2))
                     .clipShape(shape)
@@ -709,7 +708,6 @@ public struct GlassyPlatter: ViewModifier {
             } else {
                 content
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundStyle(color)
                     .padding()
                     .background(color.opacity(0.2))
                     .clipShape(shape)
@@ -718,7 +716,6 @@ public struct GlassyPlatter: ViewModifier {
         } else {
             content
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(color)
                 .padding()
                 .background(color.opacity(0.2))
                 .clipShape(shape)
