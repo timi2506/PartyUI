@@ -237,14 +237,14 @@ public struct HeaderLabel: View {
     public var body: some View {
         HStack {
             if #available(iOS 26.0, *) {
-                HStack(spacing: useHeaderStyling ? 10 : nil) {
+                HStack(spacing: useHeaderStyling ? 8 : nil) {
                     Image(systemName: icon)
                         .frame(width: 24, alignment: .center)
                     Text(text)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             } else {
-                HStack(spacing: useHeaderStyling ? 10 : nil) {
+                HStack(spacing: useHeaderStyling ? 8 : nil) {
                     Image(systemName: icon)
                         .frame(width: 20, alignment: .center)
                     Text(text)
@@ -349,7 +349,7 @@ public struct HeaderStyling: ViewModifier {
                 .opacity(0.6)
                 .fontWeight(.medium)
                 .padding(.top, 10)
-                .padding(.leading, 4)
+                .padding(.leading, 10)
         } else {
             content
         }
@@ -369,7 +369,7 @@ public struct CustomFooter: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.footnote)
             .opacity(0.8)
-            .padding(.leading, 4)
+            .padding(.leading, 10)
     }
 }
 
