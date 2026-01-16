@@ -25,7 +25,7 @@ public func platterCornerRadius() -> CGFloat {
 
 public func platterBackgroundColor() -> Color {
     if #available(iOS 26.0, *) {
-        return Color(.quaternarySystemFill)
+        return Color.clear
     } else {
         return Color(.secondarySystemBackground)
     }
@@ -349,6 +349,7 @@ public struct HeaderStyling: ViewModifier {
                 .opacity(0.6)
                 .fontWeight(.medium)
                 .padding(.top, 10)
+                .padding(.leading, 4)
         } else {
             content
         }
@@ -368,6 +369,7 @@ public struct CustomFooter: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.footnote)
             .opacity(0.8)
+            .padding(.leading, 4)
     }
 }
 
