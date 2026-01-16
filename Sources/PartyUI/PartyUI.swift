@@ -711,14 +711,14 @@ public struct GlassyPlatter: ViewModifier {
                 content
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                    .background(color.opacity(0.2))
+                    .background(color)
                     .clipShape(shape)
                     .glassEffect(.regular.interactive(), in: shape)
             } else {
                 content
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                    .background(color.opacity(0.2))
+                    .background(color)
                     .clipShape(shape)
                     .glassEffect(.regular, in: shape)
             }
@@ -726,7 +726,7 @@ public struct GlassyPlatter: ViewModifier {
             content
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
-                .background(color.opacity(0.2))
+                .background(color)
                 .clipShape(shape)
         }
     }
