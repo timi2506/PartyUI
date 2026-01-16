@@ -31,7 +31,7 @@ public func smallPlatterCornerRadius() -> CGFloat {
     }
 }
 
-public func doubleSystemVersion() -> Double {
+@MainActor public func doubleSystemVersion() -> Double {
     let rawSystemVersion = UIDevice.current.systemVersion
     let parsedSystemVersion = rawSystemVersion.split(separator: ".").prefix(2).joined(separator: ".")
     return Double(parsedSystemVersion) ?? 0.0
@@ -234,12 +234,14 @@ public struct HeaderLabel: View {
                         .frame(width: 24, alignment: .center)
                     Text(text)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 HStack(spacing: useHeaderStyling ? 10 : nil) {
                     Image(systemName: icon)
                         .frame(width: 20, alignment: .center)
                     Text(text)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .modifier(HeaderStyling(useHeaderStyling: useHeaderStyling))
@@ -305,6 +307,7 @@ public struct HeaderDropdown: View {
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .frame(width: 24, height: 24, alignment: .center)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .buttonStyle(.plain)
         .onAppear {
@@ -341,6 +344,21 @@ public struct HeaderStyling: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+public struct CustomFooter: View {
+    var text: String
+    
+    public init(text: String) {
+        self.text = text
+    }
+    
+    public var body: some View {
+        Text(text)
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity)
+            .opacity(0.8)
     }
 }
 
@@ -399,6 +417,7 @@ public struct LinkCreditCell: View {
                     Text(text)
                         .font(.subheadline)
                         .opacity(0.8)
+                        .multilineTextAlignment(.leading)
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
@@ -432,6 +451,39 @@ public struct AppInfoCell: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+}
+
+public struct ContextualWarning: View {
+    var icon: String = ""
+    var label: String
+    var text: String
+    var color: Color = .red
+    
+    public init(icon: String = "", label: String, text: String, color: Color = .red) {
+        self.icon = icon
+        self.label = label
+        self.text = text
+        self.color = color
+    }
+    
+    public var body: some View {
+        HStack(spacing: 10) {
+            if !icon.isEmpty {
+                Image(systemName: icon)
+                    .font(.title)
+                    .frame(width: 38, alignment: .center)
+            }
+            VStack(alignment: .leading) {
+                Text(label)
+                    .font(.system(.title3, weight: .semibold))
+                Text(text)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .foregroundStyle(color)
+        .modifier(DynamicGlassEffect(color: color.opacity(0.2), shape: AnyShape(.rect(cornerRadius: conditionalCornerRadius()))))
     }
 }
 
