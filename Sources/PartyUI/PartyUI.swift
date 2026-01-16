@@ -15,7 +15,7 @@ public func conditionalCornerRadius() -> CGFloat {
     }
 }
 
-public func backgroundCornerRadius() -> CGFloat {
+public func platterCornerRadius() -> CGFloat {
     if #available(iOS 26.0, *) {
         return 26
     } else {
@@ -681,6 +681,47 @@ public struct ListToggleItem: View {
             }
         } else {
             
+        }
+    }
+}
+
+public struct GlassyPlatter: ViewModifier {
+    var color: Color = Color(.quaternarySystemFill)
+    var shape: AnyShape = AnyShape(.rect(cornerRadius: platterCornerRadius()))
+    var isInteractive: Bool = true
+    
+    public init(color: Color = Color(.quaternarySystemFill), shape: AnyShape = AnyShape(.rect(cornerRadius: platterCornerRadius())), isInteractive: Bool = true) {
+        self.color = color
+        self.shape = shape
+        self.isInteractive = isInteractive
+    }
+    
+    public func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            if isInteractive {
+                content
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(color)
+                    .padding()
+                    .background(color.opacity(0.2))
+                    .clipShape(shape)
+                    .glassEffect(.regular.interactive(), in: shape)
+            } else {
+                content
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(color)
+                    .padding()
+                    .background(color.opacity(0.2))
+                    .clipShape(shape)
+                    .glassEffect(.regular, in: shape)
+            }
+        } else {
+            content
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(color)
+                .padding()
+                .background(color.opacity(0.2))
+                .clipShape(shape)
         }
     }
 }
