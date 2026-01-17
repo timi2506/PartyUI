@@ -31,6 +31,14 @@ public func platterBackgroundColor() -> Color {
     }
 }
 
+public func secondaryBackgroundColor() -> Color {
+    if #available(iOS 26.0, *) {
+        return Color(.secondarySystemBackground)
+    } else {
+        return Color(.quaternarySystemFill)
+    }
+}
+
 public func smallPlatterCornerRadius() -> CGFloat {
     if #available(iOS 26.0, *) {
         return 16
@@ -196,10 +204,10 @@ public struct OverlayBackground: ViewModifier {
 
 // MARK: Containers
 public struct TerminalContainer<Content: View>: View {
-    @State private var color: Color = Color(.secondarySystemBackground)
+    @State private var color: Color = secondaryBackgroundColor()
     @ViewBuilder var content: Content
 
-    public init(color: Color = Color(.secondarySystemBackground), content: Content) {
+    public init(color: Color = secondaryBackgroundColor(), content: Content) {
         self.content = content
         self.color = color
     }
@@ -379,7 +387,7 @@ public struct CustomFooter: View {
             .font(.footnote)
             .opacity(0.6)
             .padding(.horizontal, 14)
-            .padding(.top, 4)
+            .padding(.top, 2)
     }
 }
 
@@ -573,12 +581,12 @@ public struct GlassyButtonStyle: ButtonStyle {
 
 public struct GlassyTextFieldStyle: TextFieldStyle {
     var isDisabled: Bool = false
-    var color: Color = Color(.secondarySystemBackground)
+    var color: Color = secondaryBackgroundColor()
     var cornerRadius: CGFloat = conditionalCornerRadius()
     var capsuleField: Bool = false
     var isInteractive: Bool = true
     
-    public init(isDisabled: Bool = false, color: Color = Color(.secondarySystemBackground), cornerRadius: CGFloat = conditionalCornerRadius(), capsuleField: Bool = false, isInteractive: Bool = true) {
+    public init(isDisabled: Bool = false, color: Color = secondaryBackgroundColor(), cornerRadius: CGFloat = conditionalCornerRadius(), capsuleField: Bool = false, isInteractive: Bool = true) {
         self.isDisabled = isDisabled
         self.color = color
         self.cornerRadius = cornerRadius
@@ -587,7 +595,7 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
     }
     
     public func _body(configuration: TextField<Self._Label>) -> some View {
-        let color: Color = isDisabled ? Color(.systemGray5) : color
+        let color: Color = isDisabled ? .gray.opacity(0.2) : color
         let fontColor: Color = isDisabled ? .gray : .primary
         
         if #available(iOS 26.0, *) {
