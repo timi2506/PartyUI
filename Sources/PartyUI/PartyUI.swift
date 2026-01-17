@@ -322,7 +322,7 @@ public struct HeaderDropdown: View {
                 }
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .frame(width: 24, height: 24, alignment: .center)
-                    .animation(.default, value: isExpanded)
+                    .animation(.default.speed(1.5), value: isExpanded)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -680,7 +680,7 @@ public struct ListToggleItem: View {
                 }) {
                     LabeledContent {
                         Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
-                            .animation(.default, value: isOn)
+                            .animation(.default.speed(1.5), value: isOn)
                     } label: {
                         HStack {
                             if !icon.isEmpty {
@@ -699,6 +699,7 @@ public struct ListToggleItem: View {
                 }) {
                     LabeledContent {
                         Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                            .animation(.default.speed(1.5), value: isOn)
                     } label: {
                         HStack {
                             if !icon.isEmpty {
