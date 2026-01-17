@@ -338,18 +338,27 @@ public struct HeaderDropdown: View {
 
 public struct HeaderStyling: ViewModifier {
     var useHeaderStyling: Bool
+    var addLeadingPadding: Bool = true
     
-    public init(useHeaderStyling: Bool) {
+    public init(useHeaderStyling: Bool, addLeadingPadding: Bool = true) {
         self.useHeaderStyling = useHeaderStyling
+        self.addLeadingPadding = addLeadingPadding
     }
     
     public func body(content: Content) -> some View {
         if useHeaderStyling {
-            content
-                .opacity(0.6)
-                .fontWeight(.medium)
-                .padding(.top, 10)
-                .padding(.leading, 10)
+            if addLeadingPadding {
+                content
+                    .opacity(0.6)
+                    .fontWeight(.medium)
+                    .padding(.top, 10)
+                    .padding(.leading, 10)
+            } else {
+                content
+                    .opacity(0.6)
+                    .fontWeight(.medium)
+                    .padding(.top, 10)
+            }
         } else {
             content
         }
@@ -368,8 +377,8 @@ public struct CustomFooter: View {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.footnote)
-            .opacity(0.8)
-            .padding(.leading, 10)
+            .opacity(0.6)
+            .padding(.leading, 14)
     }
 }
 
@@ -390,6 +399,7 @@ public struct ButtonLabel: View {
                 ImageRenderingView(image: Image(icon), cornerRadius: 0, glassEffect: false, isInteractive: false, width: 24, height: 24, shouldImageFit: true)
             } else {
                 Image(systemName: icon)
+                    .frame(width: 24, alignment: .center)
             }
             Text(text)
         }
