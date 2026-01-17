@@ -196,10 +196,10 @@ public struct OverlayBackground: ViewModifier {
 
 // MARK: Containers
 public struct TerminalContainer<Content: View>: View {
-    @State private var color: Color = Color(.quaternarySystemFill)
+    @State private var color: Color = Color(.secondarySystemBackground)
     @ViewBuilder var content: Content
 
-    public init(color: Color = Color(.quaternarySystemFill), content: Content) {
+    public init(color: Color = Color(.secondarySystemBackground), content: Content) {
         self.content = content
         self.color = color
     }
@@ -237,9 +237,9 @@ public struct HeaderLabel: View {
     public var body: some View {
         HStack {
             if #available(iOS 26.0, *) {
-                HStack(spacing: useHeaderStyling ? 12 : nil) {
+                HStack(spacing: useHeaderStyling ? 10 : nil) {
                     Image(systemName: icon)
-                        .frame(width: 24, alignment: .center)
+                        .frame(width: 22, alignment: .center)
                     Text(text)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -350,13 +350,13 @@ public struct HeaderStyling: ViewModifier {
             if addLeadingPadding {
                 content
                     .opacity(0.6)
-                    .fontWeight(.medium)
+                    .fontWeight(.semibold)
                     .padding(.top, 10)
                     .padding(.leading, 14)
             } else {
                 content
                     .opacity(0.6)
-                    .fontWeight(.medium)
+                    .fontWeight(.semibold)
                     .padding(.top, 10)
             }
         } else {
@@ -573,12 +573,12 @@ public struct GlassyButtonStyle: ButtonStyle {
 
 public struct GlassyTextFieldStyle: TextFieldStyle {
     var isDisabled: Bool = false
-    var color: Color = Color(.quaternarySystemFill)
+    var color: Color = Color(.secondarySystemBackground)
     var cornerRadius: CGFloat = conditionalCornerRadius()
     var capsuleField: Bool = false
     var isInteractive: Bool = true
     
-    public init(isDisabled: Bool = false, color: Color = Color(.quaternarySystemFill), cornerRadius: CGFloat = conditionalCornerRadius(), capsuleField: Bool = false, isInteractive: Bool = true) {
+    public init(isDisabled: Bool = false, color: Color = Color(.secondarySystemBackground), cornerRadius: CGFloat = conditionalCornerRadius(), capsuleField: Bool = false, isInteractive: Bool = true) {
         self.isDisabled = isDisabled
         self.color = color
         self.cornerRadius = cornerRadius
