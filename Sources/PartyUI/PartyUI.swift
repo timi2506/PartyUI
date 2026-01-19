@@ -527,6 +527,7 @@ public struct ContextualWarning: View {
     }
 }
 
+
 // MARK: Buttons, Text Fields, Lists
 public struct GlassyButtonStyle: ButtonStyle {
     var isDisabled: Bool = false
@@ -585,9 +586,8 @@ public struct GlassyButtonStyle: ButtonStyle {
                 }
                 .clipShape(shape)
                 .opacity(configuration.isPressed ? 0.6 : 1.0)
-                .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
-                .scaleEffect(configuration.isPressed ? 0.9 : 1)
-                            .animation(.spring(), value: configuration.isPressed)
+                .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+                .animation(configuration.isPressed ? .none : .spring(response: 0.4, dampingFraction: 0.6), value: configuration.isPressed)
                 .allowsHitTesting(!isDisabled)
         }
     }
