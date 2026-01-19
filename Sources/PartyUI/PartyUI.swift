@@ -404,14 +404,17 @@ public struct ButtonLabel: View {
     }
     
     public var body: some View {
-        HStack {
-            if isRegularImage {
+        if isRegularImage {
+            HStack {
                 ImageRenderingView(image: Image(icon), cornerRadius: 0, glassEffect: false, isInteractive: false, width: 24, height: 24, shouldImageFit: true)
-            } else {
+                Text(text)
+            }
+        } else {
+            HStack(spacing: 6) {
                 Image(systemName: icon)
                     .frame(width: 24, alignment: .center)
+                Text(text)
             }
-            Text(text)
         }
     }
 }
