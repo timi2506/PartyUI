@@ -320,9 +320,15 @@ public struct HeaderDropdown: View {
                             .clipShape(.capsule)
                     }
                 }
-                Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
-                    .frame(width: 24, height: 24, alignment: .center)
-                    .animation(.default.speed(1.5), value: isExpanded)
+                if #available(iOS 17.0, *) {
+                    Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                        .frame(width: 24, height: 24, alignment: .center)
+                        .contentTransition(.symbolEffect(.replace))
+                } else {
+                    Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                        .frame(width: 24, height: 24, alignment: .center)
+                        .animation(.default.speed(1.5), value: isExpanded)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -682,8 +688,13 @@ public struct ListToggleItem: View {
                     isOn.toggle()
                 }) {
                     LabeledContent {
-                        Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
-                            .animation(.default.speed(1.5), value: isOn)
+                        if #available(iOS 17.0, *) {
+                            Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                                .contentTransition(.symbolEffect(.replace))
+                        } else {
+                            Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                                .animation(.default.speed(1.5), value: isOn)
+                        }
                     } label: {
                         HStack {
                             if !icon.isEmpty {
@@ -701,8 +712,13 @@ public struct ListToggleItem: View {
                     isOn.toggle()
                 }) {
                     LabeledContent {
-                        Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
-                            .animation(.default.speed(1.5), value: isOn)
+                        if #available(iOS 17.0, *) {
+                            Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                                .contentTransition(.symbolEffect(.replace))
+                        } else {
+                            Image(systemName: isOn ? "checkmark.circle.fill" : "circle")
+                                .animation(.default.speed(1.5), value: isOn)
+                        }
                     } label: {
                         HStack {
                             if !icon.isEmpty {
