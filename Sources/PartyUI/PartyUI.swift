@@ -527,9 +527,9 @@ public struct ContextualWarning: View {
     }
 }
 
-
 // MARK: Buttons, Text Fields, Lists
-public struct GlassyButtonStyle: ButtonStyle {
+// I HATE SWIFT SO MUCH!!!
+public struct GlassyButtonStyle: PrimitiveButtonStyle {
     var isDisabled: Bool = false
     var color: Color = .accentColor
     var useFullWidth: Bool = true
@@ -553,42 +553,74 @@ public struct GlassyButtonStyle: ButtonStyle {
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let color: Color = isDisabled ? .gray : color
+        GlassyButtonContents(configuration: configuration, isDisabled: isDisabled, color: color, useFullWidth: useFullWidth, cornerRadius: cornerRadius, capsuleButton: capsuleButton, isInteractive: isInteractive, width: width, isMaterialButton: isMaterialButton, materialOpacity: materialOpacity)
+    }
+    
+    private struct GlassyButtonContents: View {
+        @State private var isPressed: Bool = false
+        let configuration: Configuration
+        var isDisabled: Bool = false
+        var color: Color = .accentColor
+        var useFullWidth: Bool = true
+        var cornerRadius: CGFloat = conditionalCornerRadius()
+        var capsuleButton: Bool = false
+        var isInteractive: Bool = true
+        var width: CGFloat? = nil
+        var isMaterialButton: Bool = false
+        var materialOpacity: CGFloat = 0.4
         
-        if #available(iOS 26.0, *) {
-            let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
-            let isInteractive: Bool = isDisabled ? false : true
+        var body: some View {
+            let color: Color = isDisabled ? .gray : color
             
-            configuration.label
-                .buttonStyle(.plain)
-                .frame(maxWidth: useFullWidth ? .infinity : nil)
-                .foregroundStyle(color)
-                .padding()
-                .frame(width: width)
-                .background(color.opacity(0.2))
-                .clipShape(shape)
-                .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
-                .allowsHitTesting(!isDisabled)
-        } else {
-            let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
-            
-            configuration.label
-                .buttonStyle(.plain)
-                .frame(maxWidth: useFullWidth ? .infinity : nil)
-                .foregroundStyle(color)
-                .padding()
-                .frame(width: width)
-                .background(color.opacity(0.2))
-                .background {
-                    if isMaterialButton {
-                        Color.clear.background(.ultraThinMaterial.opacity(materialOpacity))
+            if #available(iOS 26.0, *) {
+                let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
+                let isInteractive: Bool = isDisabled ? false : true
+                
+                configuration.label
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: useFullWidth ? .infinity : nil)
+                    .foregroundStyle(color)
+                    .padding()
+                    .frame(width: width)
+                    .background(color.opacity(0.2))
+                    .clipShape(shape)
+                    .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
+                    .allowsHitTesting(!isDisabled)
+            } else {
+                let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
+                
+                configuration.label
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: useFullWidth ? .infinity : nil)
+                    .foregroundStyle(color)
+                    .padding()
+                    .frame(width: width)
+                    .background(color.opacity(0.2))
+                    .background {
+                        if isMaterialButton {
+                            Color.clear.background(.ultraThinMaterial.opacity(materialOpacity))
+                        }
                     }
-                }
-                .clipShape(shape)
-                .opacity(configuration.isPressed ? 0.6 : 1.0)
-                .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-                .animation(configuration.isPressed ? .none : .spring(response: 0.4, dampingFraction: 0.6), value: configuration.isPressed)
-                .allowsHitTesting(!isDisabled)
+                    .clipShape(shape)
+                    .opacity(isPressed ? 0.6 : 1.0)
+                    .scaleEffect(isPressed ? 0.95 : 1.0)
+                    .animation(isPressed ? .none : .spring(response: 0.4, dampingFraction: 0.6), value: isPressed)
+                    .allowsHitTesting(!isDisabled)
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { _ in
+                                if !isDisabled && !isPressed {
+                                    isPressed = true
+                                }
+                            }
+                            .onEnded { _ in
+                                if !isDisabled {
+                                    isPressed = false
+                                    configuration.trigger()
+                                }
+                            }
+                    )
+            }
         }
     }
 }
