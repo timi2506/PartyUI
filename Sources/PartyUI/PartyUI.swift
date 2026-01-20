@@ -19,7 +19,7 @@ public func platterCornerRadius() -> CGFloat {
     if #available(iOS 26.0, *) {
         return 26
     } else {
-        return 18
+        return 14
     }
 }
 
@@ -245,14 +245,14 @@ public struct HeaderLabel: View {
     public var body: some View {
         HStack {
             if #available(iOS 26.0, *) {
-                HStack(spacing: useHeaderStyling ? 10 : nil) {
+                HStack(spacing: 10) {
                     Image(systemName: icon)
                         .frame(width: 22, alignment: .center)
                     Text(text)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             } else {
-                HStack(spacing: useHeaderStyling ? 8 : nil) {
+                HStack(spacing: 8) {
                     Image(systemName: icon)
                         .frame(width: 20, alignment: .center)
                     Text(text)
@@ -421,6 +421,27 @@ public struct ButtonLabel: View {
                     .frame(width: 24, alignment: .center)
                 Text(text)
             }
+        }
+    }
+}
+
+public struct ListItemLabel: View {
+    var text: String
+    var icon: String
+    
+    public init(text: String, icon: String) {
+        self.text = text
+        self.icon = icon
+    }
+    
+    public var body: some View {
+        HStack {
+            if !icon.isEmpty {
+                Image(systemName: icon)
+                    .frame(width: 24, alignment: .center)
+            }
+            Text(text)
+                .lineLimit(1)
         }
     }
 }
@@ -602,8 +623,8 @@ public struct GlassyButtonStyle: PrimitiveButtonStyle {
                         }
                     }
                     .clipShape(shape)
-                    .opacity(isPressed ? 0.6 : 1.0)
-                    .scaleEffect(isPressed ? 0.95 : 1.0)
+                    .opacity(isPressed ? 0.8 : 1.0)
+                    .scaleEffect(isPressed ? 0.98 : 1.0)
                     .animation(isPressed ? .none : .spring(response: 0.4, dampingFraction: 0.6), value: isPressed)
                     .allowsHitTesting(!isDisabled)
                     .gesture(
@@ -674,10 +695,12 @@ public struct GlassyTextFieldStyle: TextFieldStyle {
 public struct GlassyListRowBackground: ViewModifier {
     var color: Color = .accentColor
     var cornerRadius: CGFloat = conditionalCornerRadius()
+    var isOn: Bool = false
     
-    public init(color: Color = .accentColor, cornerRadius: CGFloat = conditionalCornerRadius()) {
+    public init(color: Color = .accentColor, cornerRadius: CGFloat = conditionalCornerRadius(), isOn: Bool = false) {
         self.color = color
         self.cornerRadius = cornerRadius
+        self.isOn = isOn
     }
     
     public func body(content: Content) -> some View {
@@ -689,6 +712,7 @@ public struct GlassyListRowBackground: ViewModifier {
                 .background(color.opacity(0.2))
                 .clipShape(.rect(cornerRadius: cornerRadius))
                 .glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
+                .opacity(isOn ? 1.0 : 0.8)
         } else {
             content
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -696,6 +720,7 @@ public struct GlassyListRowBackground: ViewModifier {
                 .padding()
                 .background(color.opacity(0.2))
                 .clipShape(.rect(cornerRadius: cornerRadius))
+                .opacity(isOn ? 1.0 : 0.8)
         }
     }
 }
@@ -733,16 +758,11 @@ public struct ListToggleItem: View {
                         }
                     } label: {
                         HStack {
-                            if !icon.isEmpty {
-                                Image(systemName: icon)
-                                    .frame(width: 24, alignment: .center)
-                            }
-                            Text(text)
-                                .lineLimit(1)
+                            ListItemLabel(text: text, icon: icon)
                         }
                     }
                 }
-                .modifier(GlassyListRowBackground())
+                .modifier(GlassyListRowBackground(isOn: isOn))
             } else {
                 Button(action: {
                     isOn.toggle()
