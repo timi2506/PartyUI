@@ -104,7 +104,14 @@ public struct GlassyButtonStyle: PrimitiveButtonStyle {
                     .background(color.opacity(0.2))
                     .clipShape(shape)
                     .glassEffect(isInteractive ? .regular.interactive() : .regular, in: shape)
-                    .allowsHitTesting(!isDisabled)
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onEnded { _ in
+                                if !isDisabled {
+                                    configuration.trigger()
+                                }
+                            }
+                    )
             } else {
                 let shape: AnyShape = capsuleButton ? AnyShape(.capsule) : AnyShape(.rect(cornerRadius: cornerRadius))
                 
@@ -124,7 +131,6 @@ public struct GlassyButtonStyle: PrimitiveButtonStyle {
                     .opacity(isPressed ? 0.8 : 1.0)
                     .scaleEffect(isPressed ? 0.98 : 1.0)
                     .animation(isPressed ? .none : .spring(response: 0.4, dampingFraction: 0.6), value: isPressed)
-                    .allowsHitTesting(!isDisabled)
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { _ in
