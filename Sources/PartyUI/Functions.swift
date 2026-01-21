@@ -1,8 +1,11 @@
 //
-//  Inators.swift
-//  PartyUI
+//  Functions.swift
+//  Created by lunginspector for jailbreak.party.
 //
-//  Created by jailbreak.party on 12/30/25.
+//  PartyUI: a collection of reusable UI elements used by jailbreak.party.
+//  Licensed under the MIT License.
+//  https://github.com/jailbreakdotparty/PartyUI
+//  https://jailbreak.party/
 //
 
 import Foundation
@@ -141,5 +144,77 @@ public extension Color {
         let greenValue = Double((rgb >> 8) & 0xFF) / 255.0
         let blueValue = Double(rgb & 0xFF) / 255.0
         self.init(red: redValue, green: greenValue, blue: blueValue)
+    }
+}
+
+// MARK: Conditionals
+public func conditionalCornerRadius() -> CGFloat {
+    if #available(iOS 26.0, *) {
+        return 18
+    } else {
+        return 12
+    }
+}
+
+public func platterCornerRadius() -> CGFloat {
+    if #available(iOS 26.0, *) {
+        return 26
+    } else {
+        return 14
+    }
+}
+
+public func platterBackgroundColor() -> Color {
+    if #available(iOS 26.0, *) {
+        return Color.clear
+    } else {
+        return Color(.secondarySystemBackground)
+    }
+}
+
+public func secondaryBackgroundColor() -> Color {
+    if #available(iOS 26.0, *) {
+        return Color(.secondarySystemBackground)
+    } else {
+        return Color(.quaternarySystemFill)
+    }
+}
+
+public func smallPlatterCornerRadius() -> CGFloat {
+    if #available(iOS 26.0, *) {
+        return 16
+    } else {
+        return 12
+    }
+}
+
+// MARK: Other Functions/Extensions
+@MainActor public func doubleSystemVersion() -> Double {
+    let rawSystemVersion = UIDevice.current.systemVersion
+    let parsedSystemVersion = rawSystemVersion.split(separator: ".").prefix(2).joined(separator: ".")
+    return Double(parsedSystemVersion) ?? 0.0
+}
+
+public extension EdgeInsets {
+    static let dropdownRowInsets = EdgeInsets(top: 6, leading: 20, bottom: 6, trailing: 20)
+    static let itemRowInsets = EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+    static let zeroInsets = EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+}
+
+public extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+}
+
+public extension View {
+    @ViewBuilder
+    public func `if`<T: View, U: View>(
+        _ condition: Bool,
+        then modifierT: (Self) -> T,
+        else modifierU: (Self) -> U
+    ) -> some View {
+        if condition { modifierT(self) }
+        else { modifierU(self) }
     }
 }

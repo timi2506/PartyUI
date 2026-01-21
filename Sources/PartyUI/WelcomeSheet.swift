@@ -1,8 +1,11 @@
 //
 //  WelcomeSheet.swift
-//  PartyUI
+//  Created by lunginspector for jailbreak.party.
 //
-//  Created by Main on 12/30/25.
+//  PartyUI: a collection of reusable UI elements used by jailbreak.party.
+//  Licensed under the MIT License.
+//  https://github.com/jailbreakdotparty/PartyUI
+//  https://jailbreak.party/
 //
 
 import SwiftUI

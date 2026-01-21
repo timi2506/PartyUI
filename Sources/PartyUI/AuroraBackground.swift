@@ -1,6 +1,12 @@
 //
-//  AuroraBackground.swift
+//  PartyViews.swift
+//  Created by lunginspector for jailbreak.party.
 //  Thanks to https://www.cephalopod.studio/blog/swiftui-aurora-background-animation for much of the code required to achieve this.
+//
+//  PartyUI: a collection of reusable UI elements used by jailbreak.party.
+//  Licensed under the MIT License.
+//  https://github.com/jailbreakdotparty/PartyUI
+//  https://jailbreak.party/
 //
 
 import SwiftUI
