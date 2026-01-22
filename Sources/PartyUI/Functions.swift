@@ -209,7 +209,7 @@ public extension UIApplication {
 
 public extension View {
     @ViewBuilder
-    public func `if`<T: View, U: View>(
+    func `if`<T: View, U: View>(
         _ condition: Bool,
         then modifierT: (Self) -> T,
         else modifierU: (Self) -> U
